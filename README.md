@@ -145,7 +145,7 @@ And if we now put all of these on the same dashboard, we have a RED metrics grap
 With only about 20 lines of manual instrumentation code, we are able to initialize the OpenTelemetry SDK,
 create two metric instruments, and measure the requests, errors, and duration of our application. Although
 this example is purposefully simple, it shows the general approach and demonstrates that we can ingest
-RED metrics for monitoring.
+RED metrics for service observability.
 
 Of course, we're missing out on a HUGE amount of additional telemetry that could have been obtained by simply
 using the auto-instrumentation java agent. We're missing distributed tracing, we're lacking JVM internal and 
