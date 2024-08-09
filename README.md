@@ -29,9 +29,11 @@ collector contrib image, so you'll need docker. There are three pieces to this:
 
 1. `collector.yaml` - this is the config for the collector. It's configured to receive
    OTLP and to export metrics to Splunk us0 realm. It sources an ingest token
-   from the environment and sends it in the `X-SF-TOKEN` http header. That's it.
-2. `collector.sh` - script that runs docker, passes the config and environment.
-3. You'll need an ingest token ([docs here](https://docs.splunk.com/observability/en/admin/authentication/authentication-tokens/org-tokens.html)).
+   from the environment and sends it in the `X-SF-TOKEN` http header.
+   You won't need to edit this file.
+3. `collector.sh` - script that runs docker, passes the config and environment.
+   You won't need to edit this file.
+5. You'll need an ingest token ([docs here](https://docs.splunk.com/observability/en/admin/authentication/authentication-tokens/org-tokens.html)).
 
 With these 3 things in hand, it's simple to start the collector:
 
