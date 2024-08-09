@@ -1,4 +1,4 @@
-<img width="487" alt="image" src="https://github.com/user-attachments/assets/23ee5a3f-272a-4cd9-b9bc-d54973c11318"># RED metrics (the hard way)
+# RED metrics (the hard way)
 
 A guide to generating RED metrics without auto-instrumentation.
 
@@ -129,6 +129,12 @@ metric name `http.server.request.duration` with a rollup of "mean" to get the av
 
 <img width="487" alt="image" src="https://github.com/user-attachments/assets/df0466b4-ae7c-446e-ba46-bb51d5de9223">
 
+Unfortunately, just computing the average duration causes us to lose some subtle details tucked within in our data, 
+and we could also be skewed or otherwise impacted by outliers. A common approach then is to use _percentiles_ instead
+of a singular mean (average). We do this by creating a separate timeseries for each percentile we care about, 
+using the "Percentile" rollup. For this exercise, we choose to look at P50, P90, P95, and P99:
+
+<img width="1005" alt="image" src="https://github.com/user-attachments/assets/fdf5c93b-b9b0-475b-942d-6badeb45e676">
 
 # Summary
 
