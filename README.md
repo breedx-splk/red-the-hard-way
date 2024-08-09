@@ -106,10 +106,18 @@ The metrics then break down like this:
 * (E)rrors - `http.server.request.count` aggregated (summed) only where `error.type` is present.
 * (D)uration - `http.server.request.duration` brought in as quantized (bucketed) time ranges in a histogram.
 
-The following shows screens from Splunk Observability cloud, but similar results can be obtained from
+The following shows screens from Splunk Observability Cloud, but similar results can be obtained from
 Prometheus and other open source tools.
 
+Using the dashboard builder, let's look at our `http.server.request.count` metric and filter/limit it to 
+just our service, where `service.name=red-metrics`:
+
 <img width="1025" alt="image" src="https://github.com/user-attachments/assets/a0dcb145-3f83-4ded-b52d-879f3219d6dd">
+
+If we click on a datapoint to peek at the data table, we can clearly see that the time ranges are differentiated
+by the `error.type` dimension:
+
+<img width="1015" alt="image" src="https://github.com/user-attachments/assets/2dd20e0e-9fd6-46c7-9799-3f3b20f53e27">
 
 
 # Summary
