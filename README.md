@@ -1,6 +1,6 @@
 # RED metrics (the hard way)
 
-A guide to generating RED metrics without instrumentation.
+A guide to generating RED metrics without auto-instrumentation.
 
 ## Background
 
