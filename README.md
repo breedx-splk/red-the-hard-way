@@ -1,4 +1,4 @@
-# RED metrics (the hard way)
+<img width="487" alt="image" src="https://github.com/user-attachments/assets/23ee5a3f-272a-4cd9-b9bc-d54973c11318"># RED metrics (the hard way)
 
 A guide to generating RED metrics without auto-instrumentation.
 
@@ -115,10 +115,19 @@ the "Rate" rollup. Immediately, we see two timeseries:
 
 <img width="1025" alt="image" src="https://github.com/user-attachments/assets/a0dcb145-3f83-4ded-b52d-879f3219d6dd">
 
+The upper line represents the successful requests, and the lower line represents the errors.
 If we click on a datapoint to peek at the data table, we can clearly see that the time ranges are differentiated
 by the `error.type` dimension:
 
 <img width="1015" alt="image" src="https://github.com/user-attachments/assets/2dd20e0e-9fd6-46c7-9799-3f3b20f53e27">
+
+For total requests as a rate, we can simply apply the `F(x)` "Sum" aggregation without a grouping. Once we are
+happy with the results, we can save the chart to our RED metrics dashboard.
+
+Lastly, we can look at Duration (or service latency). We once again use the chart builder, and use our histogram
+metric name `http.server.request.duration` with a rollup of "mean" to get the average latency:
+
+<img width="487" alt="image" src="https://github.com/user-attachments/assets/df0466b4-ae7c-446e-ba46-bb51d5de9223">
 
 
 # Summary
