@@ -110,7 +110,8 @@ The following shows screens from Splunk Observability Cloud, but similar results
 Prometheus and other open source tools.
 
 Using the dashboard builder, let's look at our `http.server.request.count` metric and filter/limit it to 
-just our service, where `service.name=red-metrics`:
+just our service, where `service.name=red-metrics`. Because we want to see requests as a _rate_, we choose
+the "Rate" rollup. Immediately, we see two timeseries:
 
 <img width="1025" alt="image" src="https://github.com/user-attachments/assets/a0dcb145-3f83-4ded-b52d-879f3219d6dd">
 
