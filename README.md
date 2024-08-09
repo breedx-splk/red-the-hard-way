@@ -79,7 +79,7 @@ The `requestCounter` is incremented every time a request has been handled
 [82](https://github.com/breedx-splk/red-the-hard-way/blob/main/src/main/java/com/splunk/example/HttpServer.java#L82)).
 
 The duration of each request is recorded in the `durationHistogram` 
-(line [70](https://github.com/breedx-splk/red-the-hard-way/blob/main/src/main/java/com/splunk/example/HttpServer.java#L79)).
+(line [70](https://github.com/breedx-splk/red-the-hard-way/blob/main/src/main/java/com/splunk/example/HttpServer.java#L70)).
 This is done by temporarily storing the start time of the request and then computing the duration
 when the request is completed. This is accomplished by wrapping the basic route with a timed route. It should
 be noted that when doing manual instrumentation like this, care must be taken to ensure that 
