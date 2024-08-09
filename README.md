@@ -17,8 +17,8 @@ What if you just want to do it the hard way? Can we do it with just manual instr
 
 ## Let's try
 
-Ok, first, it's not that hard. But be warned, the approach described here
-is probably not the best solution for most users or most applciations. By doing
+Ok, first, it's not actually that hard. But be warned, the approach described here
+is probably not the best solution for most users or most applications. By doing
 something like this, you'll be missing out on a LOT of features and a pile of telemetry
 from a fully instrumented application. You probably shouldn't do it this way.
 
