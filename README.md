@@ -136,11 +136,33 @@ using the "Percentile" rollup. For this exercise, we choose to look at P50, P90,
 
 <img width="1005" alt="image" src="https://github.com/user-attachments/assets/fdf5c93b-b9b0-475b-942d-6badeb45e676">
 
+And if we now put all of these on the same dashboard, we have a RED metrics graph for quick and easy observability:
+
+<img width="994" alt="image" src="https://github.com/user-attachments/assets/5150586c-6c1e-4ad1-8bdd-c9091d8c9f51">
+
 # Summary
 
-pros/cons
-api code sprinkled among user/business code. but not vendor specific, otel apis ftw.
-imagine an enterprise app with hundreds of endpoints/routes
-build your own o11y framework I suppose
+With only about 20 lines of manual instrumentation code, we are able to initialize the OpenTelemetry SDK,
+create two metric instruments, and measure the requests, errors, and duration of our application. Although
+this example is purposefully simple, it shows the general approach and demonstrates that we can ingest
+RED metrics for monitoring.
 
+Of course, we're missing out on a HUGE amount of additional telemetry that could have been obtained by simply
+using the auto-instrumentation java agent. We're missing distributed tracing, we're lacking JVM internal and 
+other helpful metrics, and we've got no record of our application's logs.
 
+An astute reader will likely recognize that the application business logic code (user code) has 
+also been explicitly muddied with manual calls to instrumentation APIs. While terse in this example,
+one can imagine a real-world enterprise application with hundreds of routes, all requiring instrumentation.
+With manual instrumentation, this becomes difficult to scale and also carries a maintenance burden.
+
+One upside, however, is that these are all OpenTelemetry API calls and are not tied to a specific
+vendor's custom implementation. Open, standardized APIs win here!
+
+To prevent code duplication when doing manual instrumentation, some teams choose to build bespoke abstractions 
+on top of the instrumentation APIs. While this can help with maintenance, it might result in an in-house
+kind of vendor lock in...to oneself! For most teams, installing and customizing the java agent is a better approach.
+
+Frameworks and libraries are increasingly adopting "native" first-party use of OpenTelemetry. As this 
+continues, leveraging off-the-shelf instrumentation will become increasingly easier, even without 
+an instrumentation agent.
