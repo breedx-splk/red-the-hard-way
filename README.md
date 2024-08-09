@@ -22,7 +22,7 @@ is probably not the best solution for most users or most applciations. By doing
 something like this, you'll be missing out on a LOT of features and a pile of telemetry
 from a fully instrumented application. You probably shouldn't do it this way.
 
-### Collector
+## Collector
 
 First, let's get our collector set up. We're going to run the official OpenTelemetry 
 collector contrib image, so you'll need docker. There are three pieces to this:
