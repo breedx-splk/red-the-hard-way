@@ -97,11 +97,20 @@ You might be surpised to find only 2 instruments when we are trying to get 3 RED
 This is due to how errors are accounted for within the `requestCounter`. In accordance with the otel 
 [HTTP server semantic conventions](https://github.com/open-telemetry/semantic-conventions/blob/231528e8fd564dd3d0b07ac3de65fe117442d930/docs/http/http-metrics.md#http-server), 
 we set the `error.type` attribute when an error is encountered (line [82](https://github.com/breedx-splk/red-the-hard-way/blob/main/src/main/java/com/splunk/example/HttpServer.java#L82)). When this attribute is present on some
-recorded data point, it creates one or more `metric dimensions`.
+recorded data point, it creates one or more `metric dimensions`. In other words, we are able to use a metric
+with a single name to keep track of both requests, and errors.
 
+The metrics then break down like this:
+
+* (R)equests - `http.server.request.count` aggregated (summed) across all dimensions.
+* (E)rrors - `http.server.request.count` aggregated (summed) only where `error.type` is present.
+* (D)uration - `http.server.request.duration` brought in as quantized (bucketed) time ranges in a histogram.
 
 The following shows screens from Splunk Observability cloud, but similar results can be obtained from
 Prometheus and other open source tools.
+
+<img width="1025" alt="image" src="https://github.com/user-attachments/assets/a0dcb145-3f83-4ded-b52d-879f3219d6dd">
+
 
 # Summary
 
