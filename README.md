@@ -54,7 +54,9 @@ The otel sdk instance is then passed to the `HttpServer`.
 
 ## HttpServer
 
-The `HttpServer` is a very simple single-endpoint http server written using 
+The `HttpServer` 
+([link](https://github.com/breedx-splk/red-the-hard-way/blob/main/src/main/java/com/splunk/example/HttpServer.java)) 
+is a very simple single-endpoint http server written using 
 [SparkJava](https://github.com/perwendel/spark).
 
 The first thing we'll do is to build our Application scaffold and initialize
