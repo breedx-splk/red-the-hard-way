@@ -50,6 +50,10 @@ SDK and starts the HTTP server. The `Application`'s main method configures
 3. `otel.resource.attributes` - used here to set the `deployment.environment` resource attribute to `red-metrics`.
 4. `otel.service.name` - used to set the service name to `red-metrics`.
 
+These configuration items can also be set more programmatically, but we find it convenient to 
+just set the system properties, because we are using SDK auto-configuration. These could have also been
+passed to the JVM via the commandline.
+
 The otel sdk instance is then passed to the `HttpServer`.
 
 ## HttpServer
@@ -57,13 +61,36 @@ The otel sdk instance is then passed to the `HttpServer`.
 The `HttpServer` 
 ([link](https://github.com/breedx-splk/red-the-hard-way/blob/main/src/main/java/com/splunk/example/HttpServer.java)) 
 is a very simple single-endpoint http server written using 
-[SparkJava](https://github.com/perwendel/spark).
+[SparkJava](https://github.com/perwendel/spark). 
+The root endpoint ("`/`") is written to have both a controlled error rate and a set of ranomly determined,
+fixed durations. See the `perRequestTweak()` 
+([line 91](https://github.com/breedx-splk/red-the-hard-way/blob/main/src/main/java/com/splunk/example/HttpServer.java#L91))
+for details on how this is implemented.
 
-The first thing we'll do is to build our Application scaffold and initialize
-our OpenTelemetry SDK.
+The `HttpServer` is created with two instruments:
 
-Next, we need to build a little test server, which we've implemented in the
-`HttpServer` class 
-([link](https://github.com/breedx-splk/red-the-hard-way/blob/main/src/main/java/com/splunk/example/HttpServer.java)).
+1. `LongCounter requestCounter` - A counter that is incremented with every request
+2. `DoubleHistogram durationHistogram` - A histogram that tracks the quantized duration of every request.
+
+The `requestCounter` is incremented every time a request has been handled 
+(lines [79](https://github.com/breedx-splk/red-the-hard-way/blob/main/src/main/java/com/splunk/example/HttpServer.java#L79) and 
+[82](https://github.com/breedx-splk/red-the-hard-way/blob/main/src/main/java/com/splunk/example/HttpServer.java#L82)).
+
+The duration of each request is recorded in the `durationHistogram` 
+(line [70](https://github.com/breedx-splk/red-the-hard-way/blob/main/src/main/java/com/splunk/example/HttpServer.java#L79)).
+This is done by temporarily storing the start time of the request and then computing the duration
+when the request is completed. This is accomplished by wrapping the basic route with a timed route. It should
+be noted that when doing manual instrumentation like this, care must be taken to ensure that 
+_all code paths have a recording_. In this case, this is accomplished by doing calling `record()` in a `finally` 
+block, thus ensuring that successes and failures are both tracked.
+
+You might be surpised to find only 2 instruments when we are trying to get 3 RED metrics (RED has 3 letters!). 
+This is 
+
+
+# Summary
+
+pros/cons
+api code sprinkled among user/business code. but not vendor specific, otel apis ftw.
 
 
