@@ -152,7 +152,7 @@ metric name `http.server.request.duration` with a rollup of "mean" to get the av
 
 Unfortunately, just computing the average duration causes us to lose some subtle details tucked within in our data, 
 and we could also be skewed or otherwise impacted by outliers. A common approach then is to use _percentiles_ instead
-of a singular mean (average). We do this by creating a separate timeseries for each percentile we care about, 
+of a singular mean (average). We do this by graphing a separate timeseries for each percentile we care about, 
 using the "Percentile" rollup. For this exercise, we choose to look at P50, P90, P95, and P99:
 
 <img width="1005" alt="image" src="https://github.com/user-attachments/assets/fdf5c93b-b9b0-475b-942d-6badeb45e676">
