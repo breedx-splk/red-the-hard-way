@@ -81,8 +81,13 @@ The `requestCounter` is incremented every time a request has been handled
 The duration of each request is recorded in the `durationHistogram` 
 (line [70](https://github.com/breedx-splk/red-the-hard-way/blob/main/src/main/java/com/splunk/example/HttpServer.java#L70)).
 This is done by temporarily storing the start time of the request and then computing the duration
-when the request is completed. This is accomplished by wrapping the basic route with a timed route. It should
-be noted that when doing manual instrumentation like this, care must be taken to ensure that 
+when the request is completed. This is accomplished by wrapping the basic route with a timed route. 
+Observe that the raw measured duration is passed to the histogram, and that no quantization is 
+performed in user code (this is a built-in feature of the histogram). In keeping with the 
+[spec](https://github.com/open-telemetry/semantic-conventions/blob/231528e8fd564dd3d0b07ac3de65fe117442d930/docs/http/http-metrics.md#http-server), 
+the `durationHistogram` is created with a set of predetermined bucket boundaries.
+
+It should be noted that when doing manual instrumentation like this, care must be taken to ensure that 
 _all code paths have a recording_. In this case, this is accomplished by doing calling `record()` in a `finally` 
 block, thus ensuring that successes and failures are both tracked.
 
