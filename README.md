@@ -13,7 +13,7 @@ show RED metrics based on tracing data for a service.
 But what if you're overambitious and like doing extra work? What if you are obsessive
 and crave total control and freedom over how your RED metrics get created?
 
-What if you just want to do it the hard way? Can we do it?
+What if you just want to do it the hard way? Can we do it with just manual instrumentation?
 
 ## Let's try
 
@@ -84,13 +84,23 @@ be noted that when doing manual instrumentation like this, care must be taken to
 _all code paths have a recording_. In this case, this is accomplished by doing calling `record()` in a `finally` 
 block, thus ensuring that successes and failures are both tracked.
 
-You might be surpised to find only 2 instruments when we are trying to get 3 RED metrics (RED has 3 letters!). 
-This is 
+## The Metrics
 
+You might be surpised to find only 2 instruments when we are trying to get 3 RED metrics (RED has 3 letters!). 
+This is due to how errors are accounted for within the `requestCounter`. In accordance with the otel 
+[HTTP server semantic conventions](https://github.com/open-telemetry/semantic-conventions/blob/231528e8fd564dd3d0b07ac3de65fe117442d930/docs/http/http-metrics.md#http-server), 
+we set the `error.type` attribute when an error is encountered (line [82](https://github.com/breedx-splk/red-the-hard-way/blob/main/src/main/java/com/splunk/example/HttpServer.java#L82)). When this attribute is present on some
+recorded data point, it creates one or more `metric dimensions`.
+
+
+The following shows screens from Splunk Observability cloud, but similar results can be obtained from
+Prometheus and other open source tools.
 
 # Summary
 
 pros/cons
 api code sprinkled among user/business code. but not vendor specific, otel apis ftw.
+imagine an enterprise app with hundreds of endpoints/routes
+build your own o11y framework I suppose
 
 
