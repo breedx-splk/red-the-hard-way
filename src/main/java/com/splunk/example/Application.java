@@ -1,11 +1,7 @@
 package com.splunk.example;
 
 import io.opentelemetry.api.OpenTelemetry;
-import io.opentelemetry.exporter.otlp.http.metrics.OtlpHttpMetricExporter;
 import io.opentelemetry.sdk.autoconfigure.AutoConfiguredOpenTelemetrySdk;
-import io.opentelemetry.sdk.metrics.export.PeriodicMetricReader;
-
-import java.time.Duration;
 
 public class Application {
 
