@@ -91,6 +91,27 @@ It should be noted that when doing manual instrumentation like this, care must b
 _all code paths have a recording_. In this case, this is accomplished by doing calling `record()` in a `finally` 
 block, thus ensuring that successes and failures are both tracked.
 
+You can run the server like this:
+
+```
+./gradlew run
+```
+
+### Generate some traffic
+
+We just need to get some traffic into our server, so a simple infinite loop in bash will do the trick:
+
+```bash
+while [ 1 == 1 ] ; do
+  curl -i http://localhost:1974
+  sleep 0.5
+  echo
+done
+```
+
+You'll see HTTP 500s occasionally. That's expected, because our server is designed to fail about 15% of the time.
+
+
 ## The Metrics
 
 You might be surpised to find only 2 instruments when we are trying to get 3 RED metrics (RED has 3 letters!). 
