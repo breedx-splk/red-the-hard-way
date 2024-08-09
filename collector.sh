@@ -8,4 +8,5 @@ fi
 docker run -it --rm  \
   -v $(pwd)/collector.yaml:/etc/otelcol-contrib/config.yaml \
   -e SPLUNK_ACCESS_TOKEN=${SPLUNK_ACCESS_TOKEN} \
+  -p 4318:4318 \
   otel/opentelemetry-collector-contrib:latest
