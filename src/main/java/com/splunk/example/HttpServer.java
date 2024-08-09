@@ -86,12 +86,14 @@ class HttpServer {
     }
 
     /**
-     * Helps us to maintain an error rate and response time distribution
+     * Helps us to maintain an error rate and response time distribution.
      */
     void perRequestTweak(){
-        if(rand.nextInt(100) < 15){
+        // 15% chance of throwing an exception
+        if(rand.nextInt(100) < 15) {
             throw new RuntimeException("KABOOM!");
         }
+        // Our latency will be one of 0, 100, 200, 300, or 400ms.
         int latency = rand.nextInt(5) * 100;
         try {
             TimeUnit.MILLISECONDS.sleep(latency);
