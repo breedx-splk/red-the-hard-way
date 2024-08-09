@@ -1,0 +1,16 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+exporters:
+  otlphttp:
+    metrics_endpoint: "https://ingest.us0.signalfx.com/v2/datapoint/otlp"
+    headers:
+      X-SF-TOKEN: "${SPLUNK_ACCESS_TOKEN}"
+  logging/debug:
+    loglevel: debug
+service:
+  pipelines:
+    metrics:
+      receivers: [otlp]
+      exporters: [logging/debug, otlphttp]
